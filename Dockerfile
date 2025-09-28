@@ -4,16 +4,16 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN go build -o domain-monitor main.go
+RUN go build -o domain-checker main.go
 
 # Stage 2: Runtime
 FROM alpine:latest
 WORKDIR /app
 
 # Copy only the compiled binary
-COPY --from=builder /app/domain-monitor .
+COPY --from=builder /app/domain-chekcer .
 
 RUN chmod +x /app/domain-monitor
 
-CMD ["./domain-monitor"]
+CMD ["./domain-checker"]
 
